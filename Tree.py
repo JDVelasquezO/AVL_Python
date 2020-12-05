@@ -152,3 +152,7 @@ class Tree():
         aux.height = m + 1
 
         return aux
+
+    def draw(self):
+        
+        pass
