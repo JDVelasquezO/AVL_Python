@@ -11,10 +11,6 @@ digraph {
 	d -> f
 	b -> a
 	b -> c
-	b -> a
-	b -> c
-	f -> e
-	f -> g
 	f -> e
 	f -> g
 }
