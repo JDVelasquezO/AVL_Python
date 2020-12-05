@@ -1,0 +1,20 @@
+// AVL Tree
+digraph {
+	a [label=5]
+	b [label=10]
+	c [label=20]
+	d [label=25]
+	e [label=30]
+	f [label=35]
+	g [label=50]
+	d -> b
+	d -> f
+	b -> a
+	b -> c
+	b -> a
+	b -> c
+	f -> e
+	f -> g
+	f -> e
+	f -> g
+}

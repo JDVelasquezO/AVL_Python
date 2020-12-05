@@ -1,9 +1,12 @@
 from Node import Node
+from graphviz import Digraph
 
 class Tree():
 
     def __init__(self):
         self.root = None
+        self.i = 97
+        self.dot = Digraph(comment='AVL Tree')
 
     def getHeight(self, aux):
         if aux == None:
@@ -18,10 +21,16 @@ class Tree():
         self.root = self.__insertNode(self.root, value)
 
     def __insertNode(self, aux, value):
-        
+
         if aux == None:
             aux = Node(value)
-        
+
+            self.aplhabet = list(map(chr, range(self.i, 123)))
+            aux.name = self.aplhabet[0]
+            self.i += 1
+
+            self.dot.node(f"{aux.name}", f"{aux.value}")
+
         elif (value < aux.value):
             aux.left = self.__insertNode(aux.left, value)
             if (self.getHeight(aux.left) - self.getHeight(aux.right)) == 2:
@@ -154,5 +163,24 @@ class Tree():
         return aux
 
     def draw(self):
+        root = self.__drawNode(self.root)
+        self.dot.render('test-output/avl_tree.png', view=True)
+
+    def __drawNode(self, node):
+
+        root = f"{node.name}"
+        childLeft = f"{node.left.name}"
+        childRight = f"{node.right.name}"
+        self.dot.edges([root+childLeft, root+childRight])
+
+        if node.left.left != None:
+            self.__drawNode(node.left)
         
-        pass
+        if node.left.right != None:
+            self.__drawNode(node.left)
+
+        if node.right.left != None:
+            self.__drawNode(node.right)
+        
+        if node.right.right != None:
+            self.__drawNode(node.right)
