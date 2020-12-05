@@ -50,7 +50,7 @@ class Tree():
     def doubleLeft(self, aux):
         aux.left = self.simpleRight(aux.left)
         return self.simpleLeft(aux)
-    
+
     def doubleRight(self, aux):
         aux.right = self.simpleLeft(aux.right)
         return self.simpleRight(aux)
@@ -97,3 +97,58 @@ class Tree():
             print(f"{aux.value} ", end="")
             self.__showPreOrder(aux.left)
             self.__showPreOrder(aux.right)
+
+    def delete(self, value):
+        self.root = self.__deleteNode(self.root, value)
+
+    def __deleteNode(self, aux, value):
+        if value < aux.value:
+            aux.left = self.__deleteNode(aux.left, value)
+            if (self.getHeight(aux.left) - self.getHeight(aux.right)) == 2:
+                if value < aux.left.value:
+                    aux = self.simpleLeft(aux)
+                else:
+                    aux = self.doubleLeft(aux)
+
+        elif value > aux.value:
+            aux.right = self.__deleteNode(aux.right, value)
+            if (self.getHeight(aux.right) - self.getHeight(aux.left)) == 2:
+                if value > aux.right.value:
+                    aux = self.simpleRight(aux)
+                else:
+                    aux = self.doubleRight(aux)
+
+        else:
+            if aux.left == None:
+                return aux.right
+            elif aux.right == None:
+                return aux.left
+            else:
+                node = aux
+                aux = self.getMin(node.right)
+                aux.right = self.deleteMin(node.right)
+                aux.left = node.left
+
+        r = self.getHeight(aux.right)
+        l = self.getHeight(aux.left)
+        m = self.getMax(r, l)
+        aux.height = m + 1
+
+        return aux
+    
+    def getMin(self, aux):
+        if  aux.left == None:
+            return aux
+        return self.getMin(aux.left)
+
+    def deleteMin(self, aux):
+        if  aux.left == None:
+            return aux.right
+        
+        aux.left = self.deleteMin(aux.left)
+        r = self.getHeight(aux.right)
+        l = self.getHeight(aux.left)
+        m = self.getMax(r, l)
+        aux.height = m + 1
+
+        return aux

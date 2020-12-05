@@ -13,7 +13,7 @@ class AVLTree:
         
     def add(self, value):
         self.root = self._add(value, self.root)
-    
+
     def _add(self, value, tmp):
         if tmp is None:
             return Node(value)        
@@ -42,7 +42,7 @@ class AVLTree:
             return -1
         else:
             return tmp.height
-        
+
     def maxi(self, r, l):
         return (l,r)[r>l]   
 
@@ -63,7 +63,7 @@ class AVLTree:
         t1.height = self.maxi(self.height(t1.left), self.height(t1.right))+1
         t2.height = self.maxi(self.height(t2.left), t1.height)+1
         return t2
-    
+
     def drl(self, tmp):
         tmp.left = srr(tmp.left)
         return srl(tmp)
@@ -100,7 +100,7 @@ class AVLTree:
             self._postorder(tmp.left)            
             self._postorder(tmp.right)
             print(tmp.value,end = ' ')
-           
+
 
 #init
 t = AVLTree()
