@@ -106,9 +106,13 @@ class AVLTree:
 t = AVLTree()
 
 #add
-t.add(3)
 t.add(5)
 t.add(10)
+t.add(20)
+t.add(25)
+t.add(30)
+t.add(35)
+t.add(50)
 
 #print traversals
 t.preorder()
