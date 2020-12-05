@@ -11,7 +11,7 @@ class Tree():
         else:
             return aux.height
 
-    def maxi(self, r, l):
+    def getMax(self, r, l):
         return (l, r)[r>l]
 
     def insert(self, value):
@@ -26,49 +26,49 @@ class Tree():
             aux.left = self.__insertNode(aux.left, value)
             if (self.getHeight(aux.left) - self.getHeight(aux.right)) == 2:
                 if value < aux.left.value:
-                    aux = self.srl(aux)
+                    aux = self.simpleLeft(aux)
                 else:
-                    aux = self.drl(aux)
+                    aux = self.doubleLeft(aux)
 
         elif (value > aux.value):
             aux.right = self.__insertNode(aux.right, value)
             if (self.getHeight(aux.right) - self.getHeight(aux.left)) == 2:
                 if value > aux.right.value:
-                    aux = self.srr(aux)
+                    aux = self.simpleRight(aux)
                 else:
-                    aux = self.drr(aux)
+                    aux = self.doubleRight(aux)
         else:
             raise
 
         r = self.getHeight(aux.right)
         l = self.getHeight(aux.left)
-        m = self.maxi(r, l)
+        m = self.getMax(r, l)
         aux.height = m + 1
     
         return aux
 
-    def drl(self, aux):
-        aux.left = self.srr(aux.left)
-        return self.srl(aux)
+    def doubleLeft(self, aux):
+        aux.left = self.simpleRight(aux.left)
+        return self.simpleLeft(aux)
     
-    def drr(self, aux):
-        aux.right = self.srl(aux.right)
-        return self.srr(aux)
+    def doubleRight(self, aux):
+        aux.right = self.simpleLeft(aux.right)
+        return self.simpleRight(aux)
 
-    def srl(self, node):
+    def simpleLeft(self, node):
         left = node.left
         node.left = left.right
         left.right = node
-        node.height = self.maxi(self.getHeight(node.left), self.getHeight(node.right)) + 1
-        left.height = self.maxi(self.getHeight(left.left), node.height)+1
+        node.height = self.getMax(self.getHeight(node.left), self.getHeight(node.right)) + 1
+        left.height = self.getMax(self.getHeight(left.left), node.height)+1
         return left
 
-    def srr(self, node):
+    def simpleRight(self, node):
         right = node.right
         node.right = right.left
         right.left = node
-        node.height = self.maxi(self.getHeight(node.left), self.getHeight(node.right)) + 1
-        right.height = self.maxi(self.getHeight(right.left), node.height) + 1
+        node.height = self.getMax(self.getHeight(node.left), self.getHeight(node.right)) + 1
+        right.height = self.getMax(self.getHeight(right.left), node.height) + 1
         return right
 
     def showIn(self):
