@@ -10,9 +10,9 @@ tree.insert(30)
 tree.insert(35)
 tree.insert(50)
 
-# tree.delete(25)
-# tree.delete(30)
-# tree.delete(35)
+tree.delete(25)
+tree.delete(30)
+tree.delete(35)
 
 print("")
 tree.showPre()

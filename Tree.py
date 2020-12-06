@@ -107,25 +107,29 @@ class Tree():
             self.__showPreOrder(aux.left)
             self.__showPreOrder(aux.right)
 
+    def balance(self, node):
+        if self.balanceFactor(node) > 1:
+            if self.balanceFactor(node.right) < 0:
+                node.right = self.simpleLeft(node.right)
+            node = self.simpleRight(node)
+        elif self.balanceFactor(node) < -1:
+            if self.balanceFactor(node.left) > 0:
+                node.left = self.simpleRight(node.left)
+            node = self.simpleLeft(node)
+        return node
+
+    def balanceFactor(self, node):
+        return self.getHeight(node.right) - self.getHeight(node.left)
+
     def delete(self, value):
         self.root = self.__deleteNode(self.root, value)
 
     def __deleteNode(self, aux, value):
         if value < aux.value:
             aux.left = self.__deleteNode(aux.left, value)
-            if (self.getHeight(aux.left) - self.getHeight(aux.right)) == 2:
-                if value < aux.left.value:
-                    aux = self.simpleLeft(aux)
-                else:
-                    aux = self.doubleLeft(aux)
 
         elif value > aux.value:
             aux.right = self.__deleteNode(aux.right, value)
-            if (self.getHeight(aux.right) - self.getHeight(aux.left)) == 2:
-                if value > aux.right.value:
-                    aux = self.simpleRight(aux)
-                else:
-                    aux = self.doubleRight(aux)
 
         else:
             if aux.left == None:
@@ -138,12 +142,8 @@ class Tree():
                 aux.right = self.deleteMin(node.right)
                 aux.left = node.left
 
-        r = self.getHeight(aux.right)
-        l = self.getHeight(aux.left)
-        m = self.getMax(r, l)
-        aux.height = m + 1
-
-        return aux
+        aux.height = 1 + self.getMax(self.getHeight(node.left), self.getHeight(node.right))
+        return self.balance(aux)
     
     def getMin(self, aux):
         if  aux.left == None:
@@ -155,26 +155,49 @@ class Tree():
             return aux.right
         
         aux.left = self.deleteMin(aux.left)
-        r = self.getHeight(aux.right)
-        l = self.getHeight(aux.left)
-        m = self.getMax(r, l)
-        aux.height = m + 1
-
-        return aux
+        aux.height = 1 + self.getMax(self.getHeight(aux.left), self.getHeight(aux.right))
+        return self.balance(aux)
 
     def draw(self):
         root = self.__drawNode(self.root)
         self.dot.render('test-output/avl_tree.png', view=True)
 
     def __drawNode(self, node):
+        if node != None:
+            root = f"{node.name}"
 
-        root = f"{node.name}"
-        childLeft = f"{node.left.name}"
-        childRight = f"{node.right.name}"
-        self.dot.edges([root+childLeft, root+childRight])
+            if node.left == None:
+                childRight = f"{node.right.name}"
+                self.dot.edges([root+childRight])
 
-        if node.left.left != None or node.left.right != None:
-            self.__drawNode(node.left)
+                if node.right.right != None:
+                    self.__drawNode(node.right)
 
-        if node.right.left != None or node.right.right != None:
-            self.__drawNode(node.right)
+                if node.right.left != None:
+                    self.__drawNode(node.right)
+
+            elif node.right == None:
+                childLeft = f"{node.left.name}"
+                self.dot.edges([root+childLeft])
+                
+                if node.left.left != None:
+                    self.__drawNode(node.left)
+
+                if node.left.right != None:
+                    self.__drawNode(node.left)
+            else:
+                childLeft = f"{node.left.name}"
+                childRight = f"{node.right.name}"
+                self.dot.edges([root+childLeft, root+childRight])
+
+                if node.left.right != None:
+                    self.__drawNode(node.left)
+
+                if node.left.left != None:
+                    self.__drawNode(node.left)
+
+                if node.right.right != None:
+                    self.__drawNode(node.right)
+
+                if node.right.left != None:
+                    self.__drawNode(node.right)

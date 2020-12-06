@@ -7,10 +7,7 @@ digraph {
 	e [label=30]
 	f [label=35]
 	g [label=50]
-	d -> b
-	d -> f
 	b -> a
-	b -> c
-	f -> e
-	f -> g
+	b -> g
+	g -> c
 }
