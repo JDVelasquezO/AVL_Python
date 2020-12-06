@@ -1,13 +1,58 @@
 // AVL Tree
 digraph {
 	a [label=5]
-	b [label=10]
-	c [label=20]
-	d [label=25]
-	e [label=30]
-	f [label=35]
-	g [label=50]
-	b -> a
-	b -> g
-	g -> c
+	b [label=100]
+	c [label=41]
+	d [label=13]
+	e [label=15]
+	f [label=67]
+	g [label=46]
+	h [label=11]
+	i [label=55]
+	j [label=21]
+	k [label=29]
+	l [label=83]
+	m [label=71]
+	n [label=22]
+	o [label=3]
+	c -> d
+	c -> f
+	d -> a
+	d -> j
+	a -> o
+	a -> h
+	a -> o
+	a -> h
+	j -> e
+	j -> k
+	k -> n
+	j -> e
+	j -> k
+	k -> n
+	d -> a
+	d -> j
+	a -> o
+	a -> h
+	a -> o
+	a -> h
+	j -> e
+	j -> k
+	k -> n
+	j -> e
+	j -> k
+	k -> n
+	f -> g
+	f -> l
+	g -> i
+	l -> m
+	l -> b
+	l -> m
+	l -> b
+	f -> g
+	f -> l
+	g -> i
+	l -> m
+	l -> b
+	l -> m
+	l -> b
 }
