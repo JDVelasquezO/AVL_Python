@@ -175,16 +175,10 @@ class Tree():
             else:
                 childLeft = f"{node.left.name}"
                 childRight = f"{node.right.name}"
-                self.dot.edges([root+childRight, root+childLeft])
-
-                if node.left.right != None:
-                    self.__drawNode(node.left)
-
-                if node.left.left != None:
-                    self.__drawNode(node.left)
-
-                if node.right.right != None:
+                self.dot.edges([root+childLeft, root+childRight])
+                
+                if node.right.right != None or node.right.left != None:
                     self.__drawNode(node.right)
 
-                if node.right.left != None:
-                    self.__drawNode(node.right)
+                if node.left.right != None or node.left.left != None:
+                    self.__drawNode(node.left)
