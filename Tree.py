@@ -24,37 +24,22 @@ class Tree():
 
         if aux == None:
             aux = Node(value)
-
             self.aplhabet = list(map(chr, range(self.i, 123)))
             aux.name = self.aplhabet[0]
             self.i += 1
-
             self.dot.node(f"{aux.name}", f"{aux.value}")
 
         elif (value < aux.value):
             aux.left = self.__insertNode(aux.left, value)
-            if (self.getHeight(aux.left) - self.getHeight(aux.right)) == 2:
-                if value < aux.left.value:
-                    aux = self.simpleLeft(aux)
-                else:
-                    aux = self.doubleLeft(aux)
 
         elif (value > aux.value):
             aux.right = self.__insertNode(aux.right, value)
-            if (self.getHeight(aux.right) - self.getHeight(aux.left)) == 2:
-                if value > aux.right.value:
-                    aux = self.simpleRight(aux)
-                else:
-                    aux = self.doubleRight(aux)
+        
         else:
             raise
 
-        r = self.getHeight(aux.right)
-        l = self.getHeight(aux.left)
-        m = self.getMax(r, l)
-        aux.height = m + 1
-    
-        return aux
+        aux.height = 1 + self.getMax(self.getHeight(aux.left), self.getHeight(aux.right))
+        return self.balance(aux)
 
     def doubleLeft(self, aux):
         aux.left = self.simpleRight(aux.left)
