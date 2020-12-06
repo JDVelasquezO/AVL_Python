@@ -127,7 +127,7 @@ class Tree():
                 aux.right = self.deleteMin(node.right)
                 aux.left = node.left
 
-        aux.height = 1 + self.getMax(self.getHeight(node.left), self.getHeight(node.right))
+        aux.height = 1 + self.getMax(self.getHeight(aux.left), self.getHeight(aux.right))
         return self.balance(aux)
     
     def getMin(self, aux):
@@ -144,11 +144,12 @@ class Tree():
         return self.balance(aux)
 
     def draw(self):
-        root = self.__drawNode(self.root)
+        self.__drawNode(self.root)
         self.dot.render('test-output/avl_tree.png', view=True)
 
     def __drawNode(self, node):
-        if node != None:
+        if (node != None):
+            
             root = f"{node.name}"
 
             if node.left == None:
@@ -170,10 +171,11 @@ class Tree():
 
                 if node.left.right != None:
                     self.__drawNode(node.left)
+
             else:
                 childLeft = f"{node.left.name}"
                 childRight = f"{node.right.name}"
-                self.dot.edges([root+childLeft, root+childRight])
+                self.dot.edges([root+childRight, root+childLeft])
 
                 if node.left.right != None:
                     self.__drawNode(node.left)

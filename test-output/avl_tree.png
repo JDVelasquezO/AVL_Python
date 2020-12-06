@@ -15,44 +15,32 @@ digraph {
 	m [label=71]
 	n [label=22]
 	o [label=3]
-	c -> d
-	c -> f
+	i -> l
+	i -> d
+	d -> n
 	d -> a
-	d -> j
-	a -> o
 	a -> h
 	a -> o
 	a -> h
-	j -> e
-	j -> k
-	k -> n
-	j -> e
-	j -> k
-	k -> n
+	a -> o
+	n -> k
+	n -> e
+	n -> k
+	n -> e
+	d -> n
 	d -> a
-	d -> j
-	a -> o
 	a -> h
 	a -> o
 	a -> h
-	j -> e
-	j -> k
-	k -> n
-	j -> e
-	j -> k
-	k -> n
-	f -> g
-	f -> l
-	g -> i
-	l -> m
+	a -> o
+	n -> k
+	n -> e
+	n -> k
+	n -> e
 	l -> b
-	l -> m
+	l -> f
+	f -> m
 	l -> b
-	f -> g
-	f -> l
-	g -> i
-	l -> m
-	l -> b
-	l -> m
-	l -> b
+	l -> f
+	f -> m
 }
