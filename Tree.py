@@ -8,6 +8,12 @@ class Tree():
         self.i = 59
         self.dot = Digraph(comment='AVL Tree')
 
+    def getHeight(self, aux):
+        if aux == None:
+            return -1
+        else:
+            return aux.height
+
     def getMax(self, r, l):
         return (l, r)[r>l]
 
