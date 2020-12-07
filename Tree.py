@@ -8,12 +8,6 @@ class Tree():
         self.i = 59
         self.dot = Digraph(comment='AVL Tree')
 
-    def getHeight(self, aux):
-        if aux == None:
-            return -1
-        else:
-            return aux.height
-
     def getMax(self, r, l):
         return (l, r)[r>l]
 
@@ -32,14 +26,28 @@ class Tree():
         elif (value < aux.value):
             aux.left = self.__insertNode(aux.left, value)
 
+            if (self.getHeight(aux.left) - self.getHeight(aux.right)) == 2:
+                if value < aux.left.value:
+                    aux = self.simpleLeft(aux)
+                else:
+                    aux = self.doubleLeft(aux)
+
         elif (value > aux.value):
             aux.right = self.__insertNode(aux.right, value)
         
+            if (self.getHeight(aux.right) - self.getHeight(aux.left)) == 2:
+                if value > aux.right.value:
+                    aux = self.simpleRight(aux)
+                else:
+                    aux = self.doubleRight(aux)
         else:
             raise
 
-        aux.height = 1 + self.getMax(self.getHeight(aux.left), self.getHeight(aux.right))
-        return self.balance(aux)
+        r = self.getHeight(aux.right)
+        l = self.getHeight(aux.left)
+        m = self.getMax(r, l)
+        aux.height = m + 1
+        return aux
 
     def doubleLeft(self, aux):
         aux.left = self.simpleRight(aux.left)
@@ -92,7 +100,7 @@ class Tree():
             self.__showPreOrder(aux.left)
             self.__showPreOrder(aux.right)
 
-    def balance(self, node):
+    def balancedTree(self, node):
         if self.balanceFactor(node) > 1:
             if self.balanceFactor(node.right) < 0:
                 node.right = self.simpleLeft(node.right)
@@ -123,25 +131,31 @@ class Tree():
                 return aux.left
             else:
                 node = aux
-                aux = self.getMin(node.right)
-                aux.right = self.deleteMin(node.right)
+                aux = self.getNodeMin(node.left)
+                aux.right = self.replaceNodeLeft(node.left)
                 aux.left = node.left
 
-        aux.height = 1 + self.getMax(self.getHeight(aux.left), self.getHeight(aux.right))
-        return self.balance(aux)
+        r = self.getHeight(aux.right)
+        l = self.getHeight(aux.left)
+        m = self.getMax(r, l)
+        aux.height = m + 1
+        return self.balancedTree(aux)
     
-    def getMin(self, aux):
-        if  aux.left == None:
+    def getNodeMin(self, aux):
+        if  aux.right == None:
             return aux
-        return self.getMin(aux.left)
+        return self.getNodeMin(aux.right)
 
-    def deleteMin(self, aux):
-        if  aux.left == None:
-            return aux.right
+    def replaceNodeLeft(self, aux):
+        if  aux.right == None:
+            return aux.left
         
-        aux.left = self.deleteMin(aux.left)
-        aux.height = 1 + self.getMax(self.getHeight(aux.left), self.getHeight(aux.right))
-        return self.balance(aux)
+        aux.left = self.replaceNodeLeft(aux.left)
+        r = self.getHeight(aux.right)
+        l = self.getHeight(aux.left)
+        m = self.getMax(r, l)
+        aux.height = m + 1
+        return self.balancedTree(aux)
 
     def draw(self):
         self.__drawNode(self.root)
