@@ -1,32 +1,60 @@
 // AVL Tree
 digraph {
-	a [label=5]
-	b [label=100]
-	c [label=41]
-	d [label=13]
-	e [label=15]
-	f [label=67]
-	g [label=46]
-	h [label=11]
-	i [label=55]
-	j [label=21]
-	k [label=29]
-	l [label=83]
-	m [label=71]
-	n [label=22]
-	o [label=3]
-	c -> d
-	c -> f
-	f -> g
-	f -> l
-	l -> m
-	l -> b
-	g -> i
-	d -> a
-	d -> j
-	j -> e
-	j -> k
-	k -> n
-	a -> o
-	a -> h
+	";" [label=57]
+	"<" [label=25]
+	"=" [label=78]
+	">" [label=17]
+	"?" [label=45]
+	"@" [label=64]
+	A [label=97]
+	B [label=4]
+	C [label=20]
+	D [label=43]
+	E [label=56]
+	F [label=61]
+	G [label=68]
+	H [label=89]
+	I [label=100]
+	J [label=1]
+	K [label=12]
+	L [label=19]
+	M [label=23]
+	N [label=54]
+	O [label=59]
+	P [label=62]
+	Q [label=66]
+	R [label=73]
+	S [label=87]
+	T [label=90]
+	U [label=10]
+	V [label=15]
+	W [label=58]
+	";" -> "<"
+	";" -> "="
+	"=" -> "@"
+	"=" -> A
+	A -> H
+	A -> I
+	H -> S
+	H -> T
+	"@" -> F
+	"@" -> G
+	G -> Q
+	G -> R
+	F -> O
+	F -> P
+	O -> W
+	"<" -> ">"
+	"<" -> "?"
+	"?" -> D
+	"?" -> E
+	E -> N
+	">" -> B
+	">" -> C
+	C -> L
+	C -> M
+	B -> J
+	B -> K
+	K -> U
+	K -> V
 }

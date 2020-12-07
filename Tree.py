@@ -5,7 +5,7 @@ class Tree():
 
     def __init__(self):
         self.root = None
-        self.i = 97
+        self.i = 59
         self.dot = Digraph(comment='AVL Tree')
 
     def getHeight(self, aux):
@@ -24,7 +24,7 @@ class Tree():
 
         if aux == None:
             aux = Node(value)
-            self.aplhabet = list(map(chr, range(self.i, 123)))
+            self.aplhabet = list(map(chr, range(self.i, 127)))
             aux.name = self.aplhabet[0]
             self.i += 1
             self.dot.node(f"{aux.name}", f"{aux.value}")
